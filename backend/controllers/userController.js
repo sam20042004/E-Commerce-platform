@@ -3,6 +3,7 @@ import asynchHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
+
 const createUser = asynchHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -106,7 +107,7 @@ const updateCurrentUserProfile = asynchHandler(async (req, res) => {
 
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
       user.password = hashedPassword;
     }
 
@@ -154,7 +155,7 @@ const getUserById = asynchHandler(async (req, res) => {
 
 const updateUserById = asynchHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  const { username, email, password, isAdmin } = req.body;
+  const { username, email, isAdmin } = req.body;
 
   if (user) {
     user.username = username || user.username;
