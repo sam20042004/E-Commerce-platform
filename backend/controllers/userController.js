@@ -1,10 +1,9 @@
 import User from "../models/userModel.js";
-import asynchHandler from "../middlewares/asyncHandler.js";
+import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
-
-const createUser = asynchHandler(async (req, res) => {
+const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -41,7 +40,7 @@ const createUser = asynchHandler(async (req, res) => {
   }
 });
 
-const loginUser = asynchHandler(async (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const existingUser = await User.findOne({ email });
 
@@ -68,7 +67,7 @@ const loginUser = asynchHandler(async (req, res) => {
   }
 });
 
-const logoutCurrentUser = asynchHandler(async (req, res) => {
+const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
@@ -77,13 +76,13 @@ const logoutCurrentUser = asynchHandler(async (req, res) => {
   res.status(200).json({ message: "Logged out successfully." });
 });
 
-const getAllUsers = asynchHandler(async (req, res) => {
+const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
 
   res.json(users);
 });
 
-const getCurrentUserProfile = asynchHandler(async (req, res) => {
+const getCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -98,7 +97,7 @@ const getCurrentUserProfile = asynchHandler(async (req, res) => {
   }
 });
 
-const updateCurrentUserProfile = asynchHandler(async (req, res) => {
+const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -125,7 +124,7 @@ const updateCurrentUserProfile = asynchHandler(async (req, res) => {
   }
 });
 
-const deleteUserByID = asynchHandler(async (req, res) => {
+const deleteUserByID = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
@@ -142,7 +141,7 @@ const deleteUserByID = asynchHandler(async (req, res) => {
   }
 });
 
-const getUserById = asynchHandler(async (req, res) => {
+const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select("-password");
 
   if (user) {
@@ -153,7 +152,7 @@ const getUserById = asynchHandler(async (req, res) => {
   }
 });
 
-const updateUserById = asynchHandler(async (req, res) => {
+const updateUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   const { username, email, isAdmin } = req.body;
 

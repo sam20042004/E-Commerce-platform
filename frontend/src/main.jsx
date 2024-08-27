@@ -17,22 +17,24 @@ import Profile from "./pages/User/Profile.jsx";
 
 import AdminRoutes from "./pages/Admin/AdminRoutes.jsx";
 import UsersList from "./pages/Admin/UsersList.jsx";
+import CategoryList from "./pages/Admin/CategoryList.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
 
       {/* Only Authenticated Routes */}
       {/* This is acting as a middleware/checker that the user is signed in or not */}
       <Route path="" element={<PrivateRoute />}>
-        <Route path="/profile" element={<Profile />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
 
       Admin Routes
-      <Route path="/admin" element={<AdminRoutes />}>
+      <Route path="admin" element={<AdminRoutes />}>
         <Route path="userslist" element={<UsersList />} />
+        <Route path="categorylist" element={<CategoryList/>}/>
       </Route>
     </Route>
   )
