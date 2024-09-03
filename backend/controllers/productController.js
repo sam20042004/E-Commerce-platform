@@ -4,7 +4,8 @@ import asyncHandler from "../middlewares/asyncHandler.js";
 const addProduct = asyncHandler(async (req, res) => {
   try {
     // We are using req.fields as we have used formidable in our middleware sectoin.
-    const { name, description, price, category, quantity, brand } = req.fields;
+    const { name, description, price, category, quantity, brand, image } =
+      req.fields;
 
     // validation
     switch (true) {
@@ -20,6 +21,8 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Quantity is Required" });
       case !brand:
         return res.json({ error: "Brand is Required" });
+      case !image:
+        return res.json({ error: "Image is Required" });
     }
 
     const product = new Product({ ...req.fields });
@@ -33,7 +36,10 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const updateProductDetails = asyncHandler(async (req, res) => {
   try {
-    const { name, description, price, category, quantity, brand } = req.fields;
+    
+    console.log(req.fields);
+    const { name, description, price, category, quantity, brand, image } =
+      req.fields;
 
     // validation
     switch (true) {
@@ -49,7 +55,10 @@ const updateProductDetails = asyncHandler(async (req, res) => {
         return res.json({ error: "Quantity is Required" });
       case !brand:
         return res.json({ error: "Brand is Required" });
+      case !image:
+        return res.json({ error: "Image is Required" });
     }
+    
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
@@ -57,10 +66,14 @@ const updateProductDetails = asyncHandler(async (req, res) => {
       { new: true }
     );
 
+    // console.log("Hello");
+
     await product.save();
+    // console.log(product);
 
     res.status(200).json(product);
   } catch (error) {
+    console.log(error);
     res.status(400).json(error.message);
   }
 });
@@ -96,10 +109,15 @@ const fetchProducts = asyncHandler(async (req, res) => {
 });
 
 const fetchProductbyId = asyncHandler(async (req, res) => {
+  // console.log("hellooo");
   try {
+    
     const product = await Product.findById(req.params.id);
+    // console.log(product);
+    // res.status(200).json(product);
     if (product) {
       res.status(200).json(product);
+
     } else {
       res.status(404);
       throw new Error("Error not found");
@@ -115,7 +133,7 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
       .populate("category")
       .limit(12)
       .sort({ createdAt: -1 });
-    res.status(200).json({ ...products });
+    res.status(200).json(products);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server Error" });
@@ -134,7 +152,7 @@ const addProductReview = asyncHandler(async (req, res) => {
       );
 
       if (alreadyReviewed) {
-        return res.status(400).json({ error: "Product Already Reviewed" });
+        return res.status(400).json({ message: "Product Already Reviewed" });
       }
 
       const review = {

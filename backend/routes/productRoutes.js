@@ -23,16 +23,18 @@ import {
 //  stores all the text fiels in req.fields and all the files in req.files.
 router
   .route("/")
-  .post(authenticate, authorizeAdmin, formidable(), addProduct)
-  .get(fetchProducts);
+  .get(fetchProducts)
+  .post(authenticate, authorizeAdmin, formidable(), addProduct);
 
 router.route("/allproducts").get(fetchAllProducts);
+
 router
   .route("/:id/reviews")
-  .post(authenticate, authorizeAdmin, checkId, addProductReview);
+  .post(authenticate, checkId, addProductReview);
 
 router.route("/top").get(fetchTopProducts);
 router.route("/new").get(fetchNewProducts);
+
 router
   .route("/:id")
   .get(fetchProductbyId)

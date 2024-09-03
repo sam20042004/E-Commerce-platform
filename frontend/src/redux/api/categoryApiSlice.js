@@ -9,7 +9,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-    //   invalidatesTags: ["Category"],
+        invalidatesTags: ["Category"],
     }),
 
     updateCategory: builder.mutation({
@@ -18,7 +18,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-    //   invalidatesTags: ["Category"],
+        invalidatesTags: ["Category"],
     }),
 
     deleteCategory: builder.mutation({
@@ -26,7 +26,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         url: `${CATEGORY_URL}/${id}`,
         method: "DELETE",
       }),
-    //   invalidatesTags: ["Category"],
+        invalidatesTags: ["Category"],
     }),
 
     fetchCategories: builder.query({
@@ -34,7 +34,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
         url: `${CATEGORY_URL}/categories`,
         method: "GET",
       }),
-    //   providesTags: ["Category"],
+        providesTags: ["Category"],
     }),
 
     readCategory: builder.query({
@@ -46,4 +46,10 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const {useCreateCategoryMutation,useUpdateCategoryMutation, useDeleteCategoryMutation, useFetchCategoriesQuery, useReadCategoryQuery} = categoryApiSlice;
+export const {
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+  useFetchCategoriesQuery,
+  useReadCategoryQuery,
+} = categoryApiSlice;

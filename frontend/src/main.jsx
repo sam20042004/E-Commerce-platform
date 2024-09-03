@@ -18,12 +18,22 @@ import Profile from "./pages/User/Profile.jsx";
 import AdminRoutes from "./pages/Admin/AdminRoutes.jsx";
 import UsersList from "./pages/Admin/UsersList.jsx";
 import CategoryList from "./pages/Admin/CategoryList.jsx";
+import ProductList from "./pages/Admin/ProductList.jsx";
+import ProductUpdate from "./pages/Admin/ProductUpdate.jsx";
+import AllProducts from "./pages/Admin/AllProducts.jsx";
+import Home from "./Home.jsx";
+import Favorites from "./pages/Products/Favorites.jsx";
+import ProductDetails from "./pages/Products/ProductDetails.jsx";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route index={true}path="" element={<Home/>} />
+      <Route path="/favorite" element={<Favorites/> } />
+      <Route path="/product/:id" element={<ProductDetails/> } />
 
       {/* Only Authenticated Routes */}
       {/* This is acting as a middleware/checker that the user is signed in or not */}
@@ -31,10 +41,14 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
       </Route>
 
-      Admin Routes
+      {/* Admin Routes */}
       <Route path="admin" element={<AdminRoutes />}>
-        <Route path="userslist" element={<UsersList />} />
-        <Route path="categorylist" element={<CategoryList/>}/>
+        <Route path="userlist" element={<UsersList />} />
+        <Route path="categorylist" element={<CategoryList />} />
+        <Route path="productlist" element={<ProductList />} />
+        <Route path="allproductslist" element={<AllProducts />} />
+        <Route path="productlist/:pageNumber" element={<ProductList />} />
+        <Route path="product/update/:id" element={<ProductUpdate />} />
       </Route>
     </Route>
   )
