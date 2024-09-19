@@ -22,6 +22,7 @@ const Navigation = () => {
   // Use Selector - It is used to access the state of the store, here we have given state.auth as there are many slices in our single store
   // and here we need to access the state from authSlice precisely.
   const { userInfo } = useSelector((state) => state.auth);
+  const {cartItems} = useSelector((state) => state.cart);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -82,20 +83,31 @@ const Navigation = () => {
           <span className="hidden nav-item-name mt-[3rem]">SHOP</span>{" "}
         </Link>
 
-        <Link
-          to="/cart"
-          className="flex items-center transition-transform transform hover:translate-x-2"
-        >
-          <AiOutlineShoppingCart className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">CART</span>{" "}
+        <Link to="/cart" className="flex relative">
+          <div className="flex items-center transition-transform transform hover:translate-x-2">
+            <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
+            <span className="hidden nav-item-name mt-[3rem]">Cart</span>{" "}
+          </div>
+
+          <div className="absolute top-9">
+            {cartItems.length > 0 && (
+              <span>
+                <span className="px-1 py-0 text-sm text-white bg-pink-500 rounded-full">
+                  {cartItems.reduce((a, c) => a + Number(c.qty), 0)}
+                </span>
+              </span>
+            )}
+          </div>
         </Link>
 
-        <Link
-          to="/favorite"
-          className="flex items-center transition-transform transform hover:translate-x-2"
-        >
-          <FaHeart className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">Favorite</span>{" "}<FavoritesCount />
+        <Link to="/favorite" className="flex relative">
+          <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
+            <FaHeart className="mt-[3rem] mr-2" size={20} />
+            <span className="hidden nav-item-name mt-[3rem]">
+              Favorites
+            </span>{" "}
+            <FavoritesCount />
+          </div>
         </Link>
       </div>
 

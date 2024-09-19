@@ -19,7 +19,7 @@ import moment from "moment";
 import HeartIcon from "./HeartIcon";
 import Ratings from "./Ratings";
 import ProductTabs from "./ProductTabs";
-// import { addToCart } from "../../redux/features/cart/cartSlice";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
@@ -58,10 +58,12 @@ const ProductDetails = () => {
     }
   };
 
-//   const addToCartHandler = () => {
-//     dispatch(addToCart({ ...product, qty }));
-//     navigate("/cart");
-//   };
+  const addToCartHandler = () => {
+    // const q1 = Number(qty);
+    dispatch(addToCart({ ...product, qty }));
+    toast.success('Added to Cart')
+    // navigate("/cart");
+  };
 
   return (
     <>
@@ -157,7 +159,7 @@ const ProductDetails = () => {
 
               <div className="btn-container">
                 <button
-                //   onClick={addToCartHandler}
+                  onClick={addToCartHandler}
                   disabled={product.countInStock === 0}
                   className="bg-pink-600 text-white py-2 px-4 rounded-lg mt-4 md:mt-0"
                 >
