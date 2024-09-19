@@ -210,7 +210,7 @@ const Order = () => {
           </div>
         )}
 
-        {loadingDeliver && <Loader />}
+        {loadingDeliver && <Loader />}    
         {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
           <div>
             <button

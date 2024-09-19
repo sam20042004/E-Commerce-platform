@@ -16,6 +16,7 @@ import {
   addProductReview,
   fetchTopProducts,
   fetchNewProducts,
+  filterProducts,
 } from "../controllers/productController.js";
 
 // formidable is similar to multer, it comes in picture when whenever
@@ -40,4 +41,6 @@ router
   .get(fetchProductbyId)
   .put(authenticate, authorizeAdmin, formidable(), updateProductDetails)
   .delete(authenticate, authorizeAdmin, removeProduct);
+
+router.route("/filtered-products").post(filterProducts);
 export default router;

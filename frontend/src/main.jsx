@@ -31,6 +31,7 @@ import PlaceOrder from "./pages/Orders/PlaceOrder.jsx";
 import Order from "./pages/Orders/Order.jsx"
 
 import {PayPalScriptProvider} from '@paypal/react-paypal-js'
+import UserOrder from "./pages/User/UserOrder.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/user-orders" element={<UserOrder />} />
 
       {/* Only Authenticated Routes */}
       {/* This is acting as a middleware/checker that the user is signed in or not */}
@@ -49,7 +51,7 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="shipping" element={<Shipping />} />
         <Route path="placeorder" element={<PlaceOrder />} />
-        <Route path="order/:id" element={<Order />} />
+        <Route path="order/:id" element={<Order/>} />
 
       </Route>
 
